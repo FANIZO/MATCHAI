@@ -37,7 +37,6 @@ tmp/
 # Local test and development outputs
 tests/
 screenshots/
-*.png.bak
 *.py.bak
 
 # Existing uploaded user files
@@ -45,9 +44,6 @@ data/raw_images/*
 data/processed_images/*
 data/image_features/*
 
-# Generated outputs
-outputs/charts/*
-outputs/logs/*
 
 # Local database journals
 database/*.db-journal
