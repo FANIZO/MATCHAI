@@ -1,0 +1,60 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Git and editor files
+.git/
+.github/
+.vscode/
+.idea/
+
+# Operating-system files
+Thumbs.db
+.DS_Store
+
+# Local archives and installers
+*.zip
+*.rar
+*.7z
+*.exe
+*.msi
+
+# Logs and temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Local test and development outputs
+tests/
+screenshots/
+*.png.bak
+*.py.bak
+
+# Existing uploaded user files
+data/raw_images/*
+data/processed_images/*
+data/image_features/*
+
+# Generated outputs
+outputs/charts/*
+outputs/logs/*
+
+# Local database journals
+database/*.db-journal
+database/*.db-wal
+database/*.db-shm
+
+# Notebook cache
+.ipynb_checkpoints/
+
+database/matchai.db

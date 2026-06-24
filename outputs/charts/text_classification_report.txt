@@ -1,0 +1,25 @@
+MATCHAI TEXT CLASSIFIER RESULTS
+==================================================
+Total records: 120
+Training records: 90
+Testing records: 30
+Accuracy: 0.7000
+
+              precision    recall  f1-score   support
+
+         bag       1.00      0.50      0.67         2
+      bottle       1.00      0.67      0.80         3
+  calculator       0.50      1.00      0.67         2
+    document       0.00      0.00      0.00         3
+  headphones       1.00      1.00      1.00         3
+        keys       1.00      1.00      1.00         2
+      laptop       1.00      0.33      0.50         3
+       phone       1.00      0.33      0.50         3
+student_card       0.40      1.00      0.57         2
+    umbrella       0.67      1.00      0.80         2
+      wallet       0.40      1.00      0.57         2
+       watch       1.00      1.00      1.00         3
+
+    accuracy                           0.70        30
+   macro avg       0.75      0.74      0.67        30
+weighted avg       0.76      0.70      0.67        30
