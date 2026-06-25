@@ -14,6 +14,7 @@ def format_category(category: str | None) -> str:
 def render_page_header(
     title: str,
     subtitle: str,
+    icon: str = "",
 ) -> None:
     st.markdown(
         f"""
