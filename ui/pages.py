@@ -867,7 +867,7 @@ def show_matching_page() -> None:
 
                 with decision_col1:
                     confirm_clicked = st.button(
-                        "✅ Confirm Match",
+                        "Confirm Match",
                         key=f"confirm_{match_key}",
                         type="primary",
                         use_container_width=True,
@@ -875,7 +875,7 @@ def show_matching_page() -> None:
 
                 with decision_col2:
                     reject_clicked = st.button(
-                        "❌ Reject Match",
+                        "Reject Match",
                         key=f"reject_{match_key}",
                         use_container_width=True,
                     )
@@ -954,7 +954,6 @@ def show_match_history_page() -> None:
     render_page_header(
         title="Match Decision History",
         subtitle="View confirmed, rejected and pending match decisions saved by users.",
-        icon="🕘",
     )
 
     try:
@@ -1860,6 +1859,5 @@ def show_model_performance_page() -> None:
     render_page_header(
         "Analytics and Model Performance",
         "Monitor system activity and compare the trained matching algorithms.",
-        "📊",
     )
     show_dashboard_page()
