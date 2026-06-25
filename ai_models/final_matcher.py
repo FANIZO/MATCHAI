@@ -183,7 +183,7 @@ def compare_reports(
         OSError,
     ):
         image_score = 0.0
-        
+
     scores = {
         "image_similarity": image_score,
         "text_similarity": text_score,
@@ -196,7 +196,7 @@ def compare_reports(
     final_score = calculate_weighted_score(
         scores
     )
-    
+
     trained_probability, trained_model_name = (
         predict_trained_match(
             scores
@@ -333,7 +333,7 @@ def rank_matches(
     ]
 
     results.sort(
-        key=lambda result: result["final_score"],
+        key=lambda result: result["weighted_score"],
         reverse=True,
     )
 

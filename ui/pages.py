@@ -4,10 +4,6 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 from st_keyup import st_keyup
-from pathlib import Path
-
-print("STREAMLIT PAGES FILE:", Path(__file__).resolve())
-
 
 from ai_models.cnn_features import extract_and_save_features
 from ai_models.final_matcher import rank_matches
@@ -53,6 +49,7 @@ def format_category(category: str | None) -> str:
         "_",
         " ",
     ).strip().title()
+
 
 
 def show_report_form(report_type: str) -> None:
@@ -113,7 +110,7 @@ def show_report_form(report_type: str) -> None:
             <h1>{title}</h1>
             <p>{subtitle}</p>
             <div class="report-step">
-                Live AI extraction · Review details · Save report
+                Live AI extraction - Review details - Save report
             </div>
         </div>
         """,
@@ -473,6 +470,7 @@ def show_report_form(report_type: str) -> None:
     except Exception as error:
         st.error(f"Could not save the report: {error}")
 
+
 def show_reports_page() -> None:
     render_page_header(
         title="Stored Reports",
@@ -576,6 +574,7 @@ def show_reports_page() -> None:
             f"**Status:** {selected_report['status'].title()}"
         )
 
+
 def save_candidate_match(
     source_report: dict,
     candidate: dict,
@@ -609,11 +608,48 @@ def save_candidate_match(
         final_probability=candidate["final_score"],
     )
 
+
 def show_matching_page() -> None:
     render_page_header(
         title="Find Potential Matches",
         subtitle="Select an active report and let MatchAI rank the best opposite reports.",
-        icon="🎯",
+    )
+
+    st.markdown(
+        """
+        <style>
+        div[data-testid="stButton"] > button[data-testid="baseButton-primary"] {
+            background: linear-gradient(90deg, #2563eb, #06b6d4) !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+
+        div[data-testid="stButton"] > button[data-testid="baseButton-primary"] p {
+            color: #ffffff !important;
+        }
+
+        div[data-testid="stButton"] > button[data-testid="baseButton-secondary"] {
+            background: #dc2626 !important;
+            color: #ffffff !important;
+            border: 1px solid #dc2626 !important;
+        }
+
+        div[data-testid="stButton"] > button[data-testid="baseButton-secondary"] p {
+            color: #ffffff !important;
+        }
+
+        div[data-testid="stButton"] > button[data-testid="baseButton-secondary"]:hover {
+            background: #b91c1c !important;
+            color: #ffffff !important;
+            border-color: #b91c1c !important;
+        }
+
+        div[data-testid="stButton"] > button[data-testid="baseButton-secondary"]:hover p {
+            color: #ffffff !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
 
     if "match_message" in st.session_state:
@@ -744,19 +780,25 @@ def show_matching_page() -> None:
         return
 
     st.subheader(
-        "Potential Matches Ranked by Combined AI Score"
+        "Potential Matches Ranked by Combined Similarity Score"
     )
 
     st.caption(
         "Candidates are ordered from the highest "
-        "AI match probability to the lowest."
+        "combined similarity score to the lowest."
     )
 
     for index, candidate in enumerate(
         ranked_matches[:5],
         start=1,
     ):
-        similarity = float(candidate["final_score"])
+        model_confidence = float(
+            candidate["final_score"]
+        )
+
+        similarity = float(
+            candidate["weighted_score"]
+        )
 
         with st.container(border=True):
             left, right = st.columns([1, 3])
@@ -778,11 +820,16 @@ def show_matching_page() -> None:
                 )
 
                 st.write(
-                    f"**Overall match score:** "
+                    f"**Combined similarity score:** "
                     f"{similarity:.1%}"
                 )
 
                 render_confidence_chip(similarity)
+
+                st.write(
+                    f"**KNN classifier confidence:** "
+                    f"{model_confidence:.1%}"
+                )
 
                 st.write(
                     f"**Match strength:** "
@@ -792,11 +839,6 @@ def show_matching_page() -> None:
                 st.write(
                     f"**Scoring method:** "
                     f"{candidate['score_method']}"
-                )
-
-                st.write(
-                    f"**Weighted baseline:** "
-                    f"{candidate['weighted_score']:.1%}"
                 )
 
                 st.write(
@@ -877,6 +919,7 @@ def show_matching_page() -> None:
                     reject_clicked = st.button(
                         "Reject Match",
                         key=f"reject_{match_key}",
+                        type="secondary",
                         use_container_width=True,
                     )
 
@@ -949,6 +992,7 @@ def show_matching_page() -> None:
                         st.error(
                             f"Could not reject match: {error}"
                         )
+
 
 def show_match_history_page() -> None:
     render_page_header(
@@ -1064,7 +1108,7 @@ def show_match_history_page() -> None:
                 )
 
             st.write(
-                f"**Final probability:** "
+                f"**Saved model confidence:** "
                 f"{match['final_probability']:.1%}"
             )
 
@@ -1072,6 +1116,7 @@ def show_match_history_page() -> None:
                 f"**Decision saved:** "
                 f"{match['created_at']}"
             )
+
 
 def find_first_existing_file(
     filenames: list[str],
@@ -1083,6 +1128,7 @@ def find_first_existing_file(
             return file_path
 
     return None
+
 
 def show_model_performance_section() -> None:
     st.header("Model Performance")
@@ -1097,6 +1143,7 @@ def show_model_performance_section() -> None:
             "model_comparison.csv",
             "model_metrics.csv",
             "final_model_comparison.csv",
+            "final_model_results.csv",
             "classifier_comparison.csv",
         ]
     )
@@ -1264,6 +1311,7 @@ def show_model_performance_section() -> None:
         "False positives are important because they "
         "may connect an item to the wrong report."
     )
+
 
 def show_dashboard_page() -> None:
     render_page_header(
@@ -1556,6 +1604,7 @@ def show_dashboard_page() -> None:
 
     show_model_performance_section()
 
+
 def show_command_center() -> None:
     render_topbar(show_back=False)
 
@@ -1724,7 +1773,7 @@ def show_command_center() -> None:
                 <div class="hero-kicker">AI-powered recovery platform</div>
                 <h1>Find what was lost.<br>Return what was found.</h1>
                 <p>
-                    Report an item, run intelligent matching, and confirm the right owner —
+                    Report an item, run intelligent matching, and confirm the right owner -
                     all from one focused command center.
                 </p>
             </div>
@@ -1854,6 +1903,7 @@ def show_command_center() -> None:
         """,
         unsafe_allow_html=True,
     )
+
 
 def show_model_performance_page() -> None:
     render_page_header(
