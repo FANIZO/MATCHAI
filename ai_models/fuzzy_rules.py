@@ -174,9 +174,6 @@ def brand_similarity(
     cleaned_a = normalise_text(brand_a)
     cleaned_b = normalise_text(brand_b)
 
-    if not cleaned_a and not cleaned_b:
-        return 0.5
-
     if not cleaned_a or not cleaned_b:
         return 0.0
 
