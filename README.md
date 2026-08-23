@@ -316,15 +316,30 @@ The test suite covers areas including:
 
 ## Screenshots
 
-Screenshots of the application will be added here to demonstrate the user interface and matching workflow.
+### Main Interface
 
-The planned screenshots include:
+The main MatchAI interface provides access to the lost-and-found reporting and matching workflow.
 
-- Main application interface
-- Lost-item report submission
-- Found-item report submission
-- Match results
-- Dashboard
+![MatchAI Main Interface](screenshots/main-interface.png)
+
+### Lost Item Report
+
+Users can submit reports for lost items, including descriptions and relevant item attributes.
+
+![Lost Item Report](screenshots/lost-item-report.png)
+
+### Found Item Report
+
+Users can submit reports for found items, providing information that can be used by the matching system to identify potential matches.
+
+![Found Item Report](screenshots/found-item-report.png)
+
+### Match Results
+
+MatchAI generates and ranks potential matches based on visual similarity, textual similarity, and item attributes.
+
+![Match Results](screenshots/match-results.png)
+
 
 ## Design Goals
 
